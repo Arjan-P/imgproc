@@ -1,0 +1,17 @@
+{
+  "name": "@imgproc/wasm",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --import tsx/esm test/",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist/"
+  },
+  "dependencies": {
+    "@imgproc/wasm-core": "workspace:*"
+  },
+  "exports": {
+    ".": "./dist/bridge/wasm-bridge.js"
+  }
+}

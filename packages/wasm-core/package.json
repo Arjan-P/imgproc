@@ -1,0 +1,19 @@
+{
+  "name": "@imgproc/wasm-core",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "make -C .",
+    "clean": "make -C . clean"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/imgproc.d.ts",
+      "default": "./dist/imgproc.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "types/"
+  ]
+}
