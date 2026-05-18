@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { resize } from "../bridge/wasm-bridge.js";
+import { grayscale, resize } from "../bridge/wasm-bridge.js";
 
 // 4×4 solid red RGBA test image
 function makeTestImage(w = 4, h = 4) {
@@ -20,6 +20,16 @@ describe("WASM image engine", () => {
     assert.equal(out.height, 30);
     assert.equal(out.data.length, 50 * 30 * 4);
   });
+
+  test("grayscale: R=G=B for every pixel", async () => {
+    const out = await grayscale(makeTestImage());
+    for (let i = 0; i < 4 * 4; i++) {
+      assert.equal(out.data[i * 4], out.data[i * 4 + 1]);
+      assert.equal(out.data[i * 4], out.data[i * 4 + 2]);
+    }
+  });
+
+  // TODO: add test for img_invert
 
   test("no memory leak: RSS stable over 1000 resize calls", async () => {
     const src = makeTestImage(100, 100);

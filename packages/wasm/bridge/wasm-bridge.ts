@@ -40,3 +40,8 @@ export async function resize(
   const mod = await getModule();
   return withImage(mod, img, (p) => mod._img_resize(p, nw, nh));
 }
+
+export async function grayscale(img: RawImage): Promise<RawImage> {
+  const mod = await getModule();
+  return withImage(mod, img, (p) => mod._img_grayscale(p));
+}

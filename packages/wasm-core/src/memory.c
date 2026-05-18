@@ -4,14 +4,19 @@
 
 Image* img_create(int w, int h, int ch) {
   Image* img = (Image*)malloc(sizeof(Image));
-  img->data = (uint8_t*)malloc(w * h * ch);
-  img->w = w; img->h = h; img->channels = ch;
+
+  img->w = w;
+  img->h = h;
+  img->channels = ch;
+
+  img->data = (uint8_t*)malloc(img_size(img));
+
   return img;
 }
 
 Image* img_from_ptr(uint8_t* px, int w, int h, int ch) {
   Image* img = img_create(w, h, ch);
-  memcpy(img->data, px, w * h * ch);
+  memcpy(img->data, px, img_size(img));
   return img;
 }
 
