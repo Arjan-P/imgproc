@@ -25,11 +25,15 @@ function withImage(
     img.channels,
   );
   Module._free(inPtr);
-  const outPtr = cb(imgPtr);
-  const result = readImageStruct(Module, outPtr);
-  Module._img_free(outPtr);
-  Module._img_free(imgPtr);
-  return result;
+  let outPtr = 0;
+  try {
+    outPtr = cb(imgPtr);
+    if (!outPtr) throw new Error(`WASM op returned null pointer`);
+    return readImageStruct(Module, outPtr);
+  } finally {
+    if (outPtr) Module._img_free(outPtr);
+    Module._img_free(imgPtr);
+  }
 }
 
 export async function resize(
@@ -44,4 +48,9 @@ export async function resize(
 export async function grayscale(img: RawImage): Promise<RawImage> {
   const mod = await getModule();
   return withImage(mod, img, (p) => mod._img_grayscale(p));
+}
+
+export async function invert(img: RawImage): Promise<RawImage> {
+  const mod = await getModule();
+  return withImage(mod, img, (p) => mod._img_invert(p));
 }
