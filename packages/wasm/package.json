@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "node --test --import tsx/esm test/",
+    "test": "node --expose-gc --test --import tsx/esm test/",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf dist/"
   },

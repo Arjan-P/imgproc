@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "make -C .",
-    "clean": "make -C . clean"
+    "clean": "make -C . clean",
+    "typecheck": "tsc --noEmit --strict --types node types/imgproc.d.ts"
   },
   "exports": {
     ".": {
