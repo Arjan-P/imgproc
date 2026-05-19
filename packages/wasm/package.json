@@ -9,9 +9,13 @@
     "clean": "rm -rf dist/"
   },
   "dependencies": {
-    "@imgproc/wasm-core": "workspace:*"
+    "@imgproc/wasm-core": "workspace:*",
+    "@imgproc/shared": "workspace:*"
   },
   "exports": {
-    ".": "./dist/bridge/wasm-bridge.js"
+    ".": {
+      "types": "./dist/bridge/index.d.ts",
+      "default": "./dist/bridge/index.js"
+    }
   }
 }

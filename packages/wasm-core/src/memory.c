@@ -4,12 +4,17 @@
 
 Image* img_create(int w, int h, int ch) {
   Image* img = (Image*)malloc(sizeof(Image));
+  if(!img) return NULL;
 
   img->w = w;
   img->h = h;
   img->channels = ch;
 
   img->data = (uint8_t*)malloc(img_size(img));
+  if(!img->data) {
+    free(img);
+    return NULL;
+  }
 
   return img;
 }

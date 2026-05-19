@@ -4,5 +4,3 @@ export interface RawImage {
   height: number;
   channels: number;
 }
-
-export type OpName = "resize";
