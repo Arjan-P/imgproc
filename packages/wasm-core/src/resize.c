@@ -4,6 +4,7 @@
 
 Image* img_resize(Image* src, int nw, int nh) {
   Image* out = img_create(nw, nh, src->channels);
+  if(!out) return NULL;
 
     stbir_resize_uint8_linear(
     src->data, src->w, src->h, 0,
