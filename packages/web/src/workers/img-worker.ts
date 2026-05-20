@@ -1,3 +1,7 @@
+/// <reference no-default-lib="true"/>
+/// <reference lib="ES2022" />
+/// <reference lib="WebWorker" />
+
 import { resize, grayscale, invert } from "@imgproc/wasm";
 import type { RawImage } from "@imgproc/wasm";
 import type { Op } from "@imgproc/shared";
@@ -20,7 +24,10 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
   const req = e.data;
   try {
     const result = await ops[req.type](req);
-    self.postMessage({ id: req.id, ok: true, result } satisfies WorkerResponse);
+    self.postMessage(
+      { id: req.id, ok: true, result } satisfies WorkerResponse,
+      [result.data.buffer],
+    );
   } catch (err) {
     self.postMessage({
       id: req.id,

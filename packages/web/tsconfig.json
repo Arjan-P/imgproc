@@ -6,13 +6,15 @@
     "lib": [
       "ES2022",
       "DOM",
-      "DOM.Iterable",
-      "WebWorker"
+      "DOM.Iterable"
+    ],
+    "types": [
+      "vite/client"
     ],
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "module": "ESNext",
-    "noEmit": "true"
+    "noEmit": true
   },
   "include": [
     "src/**/*.ts",

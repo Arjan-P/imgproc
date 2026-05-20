@@ -2,6 +2,7 @@ import type { WorkerRequest, WorkerResponse } from "./img-worker.js";
 import type { RawImage } from "@imgproc/wasm";
 
 import ImgWorker from "./img-worker.ts?worker";
+import { OpParams } from "@imgproc/shared";
 
 const worker = new ImgWorker();
 
@@ -22,6 +23,7 @@ worker.onmessage = (e: MessageEvent<WorkerResponse>) => {
 worker.onerror = (e) => {
   pending.forEach((p) => p.reject(new Error(`Worker crashed: ${e.message}`)));
   pending.clear();
+  // TODO: add worker restart after crash
 };
 
 function send(req: WorkerRequest): Promise<RawImage> {
@@ -35,12 +37,45 @@ function makeId() {
   return crypto.randomUUID();
 }
 
-export function workerResize(img: RawImage, nw: number, nh: number) {
-  return send({ id: makeId(), img, type: "resize", nh, nw });
+export function workerResize({
+  data,
+  width,
+  height,
+  channels,
+  nw,
+  nh,
+}: RawImage & OpParams<"resize">) {
+  return send({
+    id: makeId(),
+    img: { data, width, height, channels },
+    type: "resize",
+    nw,
+    nh,
+  });
 }
-export function workerGrayscale(img: RawImage) {
-  return send({ id: makeId(), img, type: "grayscale" });
+
+export function workerGrayscale({
+  data,
+  width,
+  height,
+  channels,
+}: RawImage & OpParams<"grayscale">) {
+  return send({
+    id: makeId(),
+    img: { data, width, height, channels },
+    type: "grayscale",
+  });
 }
-export function workerInvert(img: RawImage) {
-  return send({ id: makeId(), img, type: "invert" });
+
+export function workerInvert({
+  data,
+  width,
+  height,
+  channels,
+}: RawImage & OpParams<"invert">) {
+  return send({
+    id: makeId(),
+    img: { data, width, height, channels },
+    type: "invert",
+  });
 }

@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import path from "node:path";
 
 export default defineConfig({
   plugins: [
@@ -22,7 +23,10 @@ export default defineConfig({
   // resolve wasm-core dist so Vite can find imgproc.wasm at build time
   resolve: {
     alias: {
-      "@imgproc/wasm-core": "../../packages/wasm-core/dist/imgproc.js",
+      "@imgproc/wasm-core": path.resolve(
+        __dirname,
+        "../wasm-core/dist/imgproc.js",
+      ),
     },
   },
 

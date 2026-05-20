@@ -14,8 +14,8 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/bridge/index.d.ts",
-      "default": "./dist/bridge/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   }
 }

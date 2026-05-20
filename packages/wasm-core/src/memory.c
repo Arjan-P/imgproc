@@ -21,6 +21,7 @@ Image* img_create(int w, int h, int ch) {
 
 Image* img_from_ptr(uint8_t* px, int w, int h, int ch) {
   Image* img = img_create(w, h, ch);
+  if(!img) return NULL;
   memcpy(img->data, px, img_size(img));
   return img;
 }
