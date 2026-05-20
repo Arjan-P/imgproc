@@ -12,7 +12,8 @@
     "@imgproc/shared": "workspace:*",
     "@imgproc/wasm": "workspace:*",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",

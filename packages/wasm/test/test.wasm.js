@@ -49,7 +49,9 @@ describe("WASM image engine", () => {
     const before = process.memoryUsage().heapUsed;
 
     for (let i = 0; i < 1000; i++) {
-      await resize(src, 100, 100);
+      let out = await resize(src, 100, 100);
+      out = await invert(src);
+      out = await grayscale(src);
     }
 
     global.gc?.();
