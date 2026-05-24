@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { usePipelineStore } from "../store/pipeline.store.js";
-import {
-  workerResize,
-  workerGrayscale,
-  workerInvert,
-} from "../workers/img-worker-client.js";
+import { workerOp } from "../workers/img-worker-client.js";
 import { type RawImage } from "@imgproc/wasm";
 import { type PipelineOp } from "../store/pipeline.store.js";
 
@@ -21,13 +17,13 @@ async function runPipeline(
       throw new DOMException("pipeline aborted", "AbortError");
     switch (op.type) {
       case "resize":
-        img = await workerResize({ ...img, nw: op.nw, nh: op.nh });
+        img = await workerOp.resize({ ...img, nw: op.nw, nh: op.nh });
         break;
       case "grayscale":
-        img = await workerGrayscale(img);
+        img = await workerOp.grayscale(img);
         break;
       case "invert":
-        img = await workerInvert(img);
+        img = await workerOp.invert(img);
         break;
     }
     // result buffer is now owned by img

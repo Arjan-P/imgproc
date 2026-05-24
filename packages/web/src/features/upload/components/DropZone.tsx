@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { usePipelineStore } from "../store/pipeline.store.js";
+import { usePipelineStore } from "@/features/pipeline";
 import { type RawImage } from "@imgproc/wasm";
 
 async function fileToRawImage(file: File): Promise<RawImage> {

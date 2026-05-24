@@ -1,6 +1,6 @@
 import { type PipelineOp } from "../store/pipeline.store.js";
 import { type OpParams, type Op } from "@imgproc/shared";
-import { useDebounced } from "../hooks/useDebounced.js";
+import { useDebounced } from "@/hooks/useDebounced.js";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -25,6 +25,12 @@ function ResizeControls({ op, onUpdate }: Props) {
   // local slider state — debounced before hitting the store
   const [nw, setNw] = useState(op.type === "resize" ? op.nw : 800);
   const [nh, setNh] = useState(op.type === "resize" ? op.nh : 600);
+  useEffect(() => {
+    if (op.type === "resize") {
+      setNw(op.nw);
+      setNh(op.nh);
+    }
+  }, [op]);
   const dNw = useDebounced(nw);
   const dNh = useDebounced(nh);
 

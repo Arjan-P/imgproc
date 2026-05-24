@@ -1,0 +1,128 @@
+.react-flow {
+  background: var(--background);
+  color: var(--foreground);
+
+  /* Core colors */
+  --xy-background-color-default: var(--background);
+  --xy-node-background-color-default: var(--card);
+  --xy-node-color-default: var(--card-foreground);
+
+  --xy-edge-stroke-default: var(--border);
+  --xy-edge-stroke-selected-default: var(--primary);
+
+  --xy-connectionline-stroke-default: var(--primary);
+
+  --xy-attribution-background-color-default: transparent;
+
+  /* Controls */
+  --xy-controls-button-background-color-default: var(--card);
+  --xy-controls-button-background-color-hover-default: var(--accent);
+  --xy-controls-button-color-default: var(--foreground);
+  --xy-controls-button-color-hover-default: var(--accent-foreground);
+  --xy-controls-button-border-color-default: var(--border);
+
+  /* MiniMap */
+  --xy-minimap-background-color-default: var(--popover);
+  --xy-minimap-mask-background-color-default: oklch(0 0 0 / 0.6);
+  --xy-minimap-node-background-color-default: var(--muted-foreground);
+  --xy-minimap-node-stroke-color-default: var(--border);
+
+  /* Selection */
+  --xy-selection-background-color-default: oklch(
+    from var(--primary) l c h / 0.12
+  );
+  --xy-selection-border-default: 1px solid var(--primary);
+
+  /* Handle */
+  --xy-handle-background-color-default: var(--primary);
+  --xy-handle-border-color-default: var(--background);
+}
+
+/* Grid background */
+.react-flow__background {
+  background-color: var(--background);
+}
+
+/* Nodes */
+.react-flow__node {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+
+  font-family: var(--font-mono);
+
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.06),
+    0 1px 3px rgb(0 0 0 / 0.1);
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.react-flow__node.selected {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 1px var(--ring),
+    0 4px 12px rgb(0 0 0 / 0.15);
+}
+
+/* Handles */
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+
+  border: 2px solid var(--background);
+  background: var(--primary);
+}
+
+/* Edges */
+.react-flow__edge-path {
+  stroke: var(--border);
+  stroke-width: 2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--primary);
+}
+
+/* Connection line */
+.react-flow__connection-path {
+  stroke: var(--primary);
+  stroke-width: 2;
+}
+
+/* Controls */
+.react-flow__controls {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--card);
+}
+
+.react-flow__controls-button {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.react-flow__controls-button:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* MiniMap */
+.react-flow__minimap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--popover);
+}
+
+/* Selection box */
+.react-flow__selection {
+  background: oklch(from var(--primary) l c h / 0.1);
+  border: 1px solid var(--primary);
+}

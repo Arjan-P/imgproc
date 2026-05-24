@@ -16,6 +16,7 @@ export interface PipelineActions {
   clearSource: () => void;
   addOp: (type: Op["type"]) => void;
   removeOp: (id: string) => void;
+  reorderOps: (orderedIds: string[]) => void;
   updateOp: <K extends Op["type"]>(id: string, params: OpParams<K>) => void;
   moveOp: (id: string, direction: "up" | "down") => void;
   setProcessing: (v: boolean) => void;
@@ -43,6 +44,15 @@ export const usePipelineStore = create<PipelineState & PipelineActions>()(
       set((s) => ({
         ops: s.ops.filter((o) => o.id !== id),
       })),
+
+    reorderOps: (orderedIds) =>
+      set((s) => {
+        const map = new Map(s.ops.map((o) => [o.id, o]));
+        const reordered = orderedIds
+          .map((id) => map.get(id))
+          .filter(Boolean) as PipelineOp[];
+        return { ops: reordered };
+      }),
 
     updateOp: (id, params) =>
       set((s) => ({

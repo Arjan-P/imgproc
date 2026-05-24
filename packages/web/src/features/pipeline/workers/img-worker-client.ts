@@ -2,7 +2,7 @@ import type { WorkerRequest, WorkerResponse } from "./img-worker.js";
 import type { RawImage } from "@imgproc/wasm";
 
 import ImgWorker from "./img-worker.ts?worker";
-import { OpParams } from "@imgproc/shared";
+import { Op, OpParams } from "@imgproc/shared";
 
 const worker = new ImgWorker();
 
@@ -37,7 +37,7 @@ function makeId() {
   return crypto.randomUUID();
 }
 
-export function workerResize({
+function workerResize({
   data,
   width,
   height,
@@ -54,7 +54,7 @@ export function workerResize({
   });
 }
 
-export function workerGrayscale({
+function workerGrayscale({
   data,
   width,
   height,
@@ -67,7 +67,7 @@ export function workerGrayscale({
   });
 }
 
-export function workerInvert({
+function workerInvert({
   data,
   width,
   height,
@@ -79,3 +79,11 @@ export function workerInvert({
     type: "invert",
   });
 }
+
+export const workerOp: {
+  [K in Op["type"]]: (params: RawImage & OpParams<K>) => Promise<RawImage>;
+} = {
+  resize: workerResize,
+  grayscale: workerGrayscale,
+  invert: workerInvert,
+};
