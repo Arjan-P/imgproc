@@ -6,6 +6,7 @@ import { WorkspaceLayout } from "../layouts/WorkspaceLayout";
 
 import { DashboardHomeRoute } from "@/routes/dashboard/DashboardHomeRoute";
 import { WorkspaceRoute } from "@/routes/workspace/workspace";
+import { ProtectedLayout } from "@/routes/protected/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -13,23 +14,28 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "dashboard",
-        element: <DashboardLayout />,
+        element: <ProtectedLayout />,
         children: [
           {
-            index: true,
-            element: <DashboardHomeRoute />,
+            path: "dashboard",
+            element: <DashboardLayout />,
+            children: [
+              {
+                index: true,
+                element: <DashboardHomeRoute />,
+              },
+            ],
           },
-        ],
-      },
 
-      {
-        path: "workspace",
-        element: <WorkspaceLayout />,
-        children: [
           {
-            index: true,
-            element: <WorkspaceRoute />,
+            path: "workspace",
+            element: <WorkspaceLayout />,
+            children: [
+              {
+                index: true,
+                element: <WorkspaceRoute />,
+              },
+            ],
           },
         ],
       },

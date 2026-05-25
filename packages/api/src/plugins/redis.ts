@@ -1,6 +1,6 @@
 import fp from "fastify-plugin";
 import { Redis } from "ioredis";
-import { env } from "../config/env/env.js";
+import { redisOptions } from "../config/redis.js";
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -9,7 +9,7 @@ declare module "fastify" {
 }
 
 export const redisPlugin = fp(async (app) => {
-  const redis = new Redis(env.REDIS_HOST);
+  const redis = new Redis(redisOptions);
   app.decorate("redis", redis);
   app.addHook("onClose", async () => redis.quit());
 });

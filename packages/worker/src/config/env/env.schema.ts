@@ -7,4 +7,5 @@ export const envSchema = z.object({
     .default("info"),
   DATABASE_URL: z.string(),
   REDIS_HOST: z.string(),
+  REDIS_PORT: z.string(),
 });

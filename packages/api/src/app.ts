@@ -7,6 +7,9 @@ import { uploadRoute } from "./routes/upload.js";
 import { jobsRoute } from "./routes/jobs.js";
 import { progressRoute } from "./routes/progress.js";
 import { loggerConfig } from "./config/logger.js";
+import { zodPlugin } from "./plugins/zod.js";
+import { protectedRoutes } from "./routes/protected.js";
+import { webhookRoute } from "./routes/webhook.js";
 
 export async function buildServer(): Promise<FastifyInstance> {
   const app = Fastify({ logger: loggerConfig });
@@ -15,9 +18,12 @@ export async function buildServer(): Promise<FastifyInstance> {
   await app.register(dbPlugin);
   await app.register(redisPlugin);
   await app.register(queuePlugin);
+  await app.register(zodPlugin);
 
   await app.register(
     async (api) => {
+      api.register(webhookRoute);
+      api.register(protectedRoutes);
       api.register(uploadRoute);
       api.register(jobsRoute);
       api.register(progressRoute);

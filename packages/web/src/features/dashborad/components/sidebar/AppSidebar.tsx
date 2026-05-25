@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ArrowUpCircleIcon, WorkflowIcon } from "lucide-react";
+import { ApertureIcon, WorkflowIcon } from "lucide-react";
 
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
@@ -41,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
               <a href="#">
-                <ArrowUpCircleIcon className="h-5 w-5" />
+                <ApertureIcon className="h-5 w-5" />
                 <span className="text-base font-semibold">Acme Inc.</span>
               </a>
             </SidebarMenuButton>

@@ -10,6 +10,10 @@ export const envSchema = z.object({
     .enum(["fatal", "error", "warn", "info", "debug", "trace"])
     .default("info"),
 
+  CLERK_PUBLISHABLE_KEY: z.string(),
+  CLERK_SECRET_KEY: z.string(),
+  CLERK_WEBHOOK_SECRET: z.string(),
+
   FRONTEND_URL: z.string(),
 
   DATABASE_URL: z.string(),

@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import pino from "pino";
+import { z } from "zod";
 
 import { envSchema } from "./env.schema.js";
 
@@ -17,7 +18,7 @@ const parsed = envSchema.safeParse(process.env);
 
 if (!parsed.success) {
   bootstrapLogger.error("Invalid environment variables");
-  bootstrapLogger.error(`Error: ${parsed.error.format()}`);
+  bootstrapLogger.error(`Error: ${z.prettifyError(parsed.error)}`);
   process.exit(1);
 }
 
