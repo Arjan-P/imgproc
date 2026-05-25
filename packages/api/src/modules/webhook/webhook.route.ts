@@ -3,7 +3,7 @@ import { ZodTypeProvider } from "@fastify/type-provider-zod";
 
 import { WebhookController } from "./webhook.controller.js";
 import { webhookServiceSchema } from "./webhook.schema.js";
-import { successResponse, errorResponse } from "../common/response.schema.js";
+import { successResponse, errorResponse } from "@imgproc/shared";
 import { z } from "zod";
 import rawBody from "fastify-raw-body";
 

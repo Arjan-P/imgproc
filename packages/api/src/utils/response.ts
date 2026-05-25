@@ -1,10 +1,6 @@
-import type {
-  ErrorCode,
-  ErrorResponse,
-  SuccessResponse,
-} from "@imgproc/shared";
+import type { ErrorCode, ErrorResponse } from "@imgproc/shared";
 
-export function ok<T>(data: T, message?: string): SuccessResponse<T> {
+export function ok<T>(data: T, message?: string) {
   return {
     success: true as const,
     data,

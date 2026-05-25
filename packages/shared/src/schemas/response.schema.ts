@@ -1,5 +1,5 @@
-import { ERROR_CODES } from "@imgproc/shared";
 import { z } from "zod";
+import { ERROR_CODES } from "../types/api.js";
 
 /**
  * Generic success response

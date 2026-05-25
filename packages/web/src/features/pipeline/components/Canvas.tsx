@@ -8,11 +8,7 @@ function drawToCanvas(canvas: HTMLCanvasElement, img: RawImage) {
   canvas.height = img.height;
   const ctx = canvas.getContext("2d")!;
   ctx.putImageData(
-    new ImageData(
-      new Uint8ClampedArray(img.data.buffer),
-      img.width,
-      img.height,
-    ),
+    new ImageData(new Uint8ClampedArray(img.data), img.width, img.height),
     0,
     0,
   );

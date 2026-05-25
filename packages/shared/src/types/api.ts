@@ -1,5 +1,7 @@
+import { z } from "zod";
 import type { Op } from "./op.js";
 import type { Job, JobProgress } from "./job.js";
+import { errorResponse } from "../schemas/response.schema.js";
 
 export const ERROR_CODES = [
   // Generic
@@ -11,26 +13,7 @@ export const ERROR_CODES = [
 
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
-/**
- * Generic success response
- */
-export type SuccessResponse<T> = {
-  success: true;
-  data: T;
-  meta: unknown;
-};
-
-/**
- * Generic error response
- */
-export type ErrorResponse = {
-  success: false;
-  error: {
-    code: ErrorCode;
-    message: string;
-    details: unknown;
-  };
-};
+export type ErrorResponse = z.infer<typeof errorResponse>;
 
 export interface UploadResponse {
   jobId: string;

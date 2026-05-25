@@ -54,7 +54,7 @@ importers:
         specifier: ^17.4.2
         version: 17.4.2
       fastify:
-        specifier: ^5.0.0
+        specifier: ^5.8.5
         version: 5.8.5
       fastify-plugin:
         specifier: ^5.1.0
@@ -78,7 +78,11 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
-  packages/shared: {}
+  packages/shared:
+    dependencies:
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
 
   packages/wasm:
     dependencies:

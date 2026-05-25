@@ -7,5 +7,8 @@ export const envSchema = z.object({
     .default("info"),
   DATABASE_URL: z.string(),
   REDIS_HOST: z.string(),
-  REDIS_PORT: z.string(),
+  REDIS_PORT: z
+    .string()
+    .transform(Number)
+    .refine((val) => !isNaN(val), { message: "PORT must be a number" }),
 });

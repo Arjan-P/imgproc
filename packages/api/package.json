@@ -22,7 +22,7 @@
     "@imgproc/shared": "workspace:*",
     "bullmq": "^5.0.0",
     "dotenv": "^17.4.2",
-    "fastify": "^5.0.0",
+    "fastify": "^5.8.5",
     "fastify-plugin": "^5.1.0",
     "fastify-raw-body": "^5.0.0",
     "ioredis": "^5.0.0",
