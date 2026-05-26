@@ -54,3 +54,11 @@ export async function invert(img: RawImage): Promise<RawImage> {
   const mod = await getModule();
   return withImage(mod, img, (p) => mod._img_invert(p));
 }
+
+export async function brightness(
+  img: RawImage,
+  delta: number,
+): Promise<RawImage> {
+  const mod = await getModule();
+  return withImage(mod, img, (p) => mod._img_brightness(p, delta));
+}

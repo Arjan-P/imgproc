@@ -1,2 +1,2 @@
-export { resize, grayscale, invert } from "./wasm-bridge.js";
+export * from "./wasm-bridge.js";
 export type { RawImage } from "./types.js";

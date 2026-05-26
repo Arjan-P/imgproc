@@ -2,7 +2,7 @@
 /// <reference lib="ES2022" />
 /// <reference lib="WebWorker" />
 
-import { resize, grayscale, invert } from "@imgproc/wasm";
+import { resize, grayscale, invert, brightness } from "@imgproc/wasm";
 import type { RawImage } from "@imgproc/wasm";
 import type { Op } from "@imgproc/shared";
 
@@ -18,6 +18,10 @@ const ops: { [K in Op["type"]]: (req: WorkerRequest) => Promise<RawImage> } = {
   },
   grayscale: (r) => grayscale(r.img),
   invert: (r) => invert(r.img),
+  brightness: (r) => {
+    if (r.type !== "brightness") throw new Error("unreachable");
+    return brightness(r.img, r.delta);
+  },
 };
 
 self.onmessage = async (e: MessageEvent<WorkerRequest>) => {

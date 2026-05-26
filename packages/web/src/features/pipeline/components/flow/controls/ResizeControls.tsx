@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { Slider } from "@/components/ui/slider";
 import { type PipelineOp } from "../../../store/pipeline.store.js";
-import { type OpParams, type Op } from "@imgproc/shared";
+import { type OpParams } from "@imgproc/shared";
 import { useDebounced } from "@/hooks/useDebounced";
 
 interface Props {
-  op: PipelineOp;
+  op: Extract<PipelineOp, { type: "resize" }>;
   onUpdate: (p: OpParams<"resize">) => void;
 }
 
 export function ResizeControls({ op, onUpdate }: Props) {
-  const [nw, setNw] = useState(op.type === "resize" ? op.nw : 800);
-  const [nh, setNh] = useState(op.type === "resize" ? op.nh : 600);
+  const [nw, setNw] = useState(op.nw);
+  const [nh, setNh] = useState(op.nh);
   const dNw = useDebounced(nw);
   const dNh = useDebounced(nh);
   useEffect(() => {

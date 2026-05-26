@@ -16,7 +16,12 @@ export interface InvertOp {
   type: "invert";
 }
 
-export type Op = ResizeOp | GrayscaleOp | InvertOp;
+export interface BrightnessOp {
+  type: "brightness";
+  delta: number;
+}
+
+export type Op = ResizeOp | GrayscaleOp | InvertOp | BrightnessOp;
 
 // Narrows to the op's params -> everything except `type`
 export type OpParams<T extends Op["type"]> = Omit<
@@ -29,4 +34,5 @@ export const OP_DEFAULTS: { [K in Op["type"]]: Extract<Op, { type: K }> } = {
   resize: { type: "resize", nw: 800, nh: 600 },
   grayscale: { type: "grayscale" },
   invert: { type: "invert" },
+  brightness: { type: "brightness", delta: 0 },
 };

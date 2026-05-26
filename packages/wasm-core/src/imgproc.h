@@ -18,3 +18,4 @@ void   img_free(Image* img);
 Image* img_resize(Image* src, int new_w, int new_h);
 Image* img_invert(Image* src);
 Image* img_grayscale(Image* src);
+Image* img_brightness(Image* src, int delta);

@@ -25,6 +25,9 @@ async function runPipeline(
       case "invert":
         img = await workerOp.invert(img);
         break;
+      case "brightness":
+        img = await workerOp.brightness({ ...img, delta: op.delta });
+        break;
     }
     // result buffer is now owned by img
   }

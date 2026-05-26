@@ -80,10 +80,26 @@ function workerInvert({
   });
 }
 
+function workerBrightness({
+  data,
+  width,
+  height,
+  channels,
+  delta,
+}: RawImage & OpParams<"brightness">) {
+  return send({
+    id: makeId(),
+    img: { data, width, height, channels },
+    type: "brightness",
+    delta,
+  });
+}
+
 export const workerOp: {
   [K in Op["type"]]: (params: RawImage & OpParams<K>) => Promise<RawImage>;
 } = {
   resize: workerResize,
   grayscale: workerGrayscale,
   invert: workerInvert,
+  brightness: workerBrightness,
 };

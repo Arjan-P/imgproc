@@ -3,10 +3,10 @@ import { type Op } from "@imgproc/shared";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
-  PlusIcon,
   ScanIcon,
   CircleIcon,
   ArrowRightLeftIcon,
+  SunIcon,
 } from "lucide-react";
 
 const OP_META: {
@@ -15,6 +15,7 @@ const OP_META: {
   resize: { label: "Resize", Icon: ScanIcon },
   grayscale: { label: "Grayscale", Icon: CircleIcon },
   invert: { label: "Invert", Icon: ArrowRightLeftIcon },
+  brightness: { label: "Brightness", Icon: SunIcon },
 };
 
 export function OpToolbar() {
