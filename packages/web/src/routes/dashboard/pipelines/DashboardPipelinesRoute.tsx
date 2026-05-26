@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { ROUTES } from "@/app/router/router";
+import { useEffect } from "react";
 
 export function DashboardPipelinesRoute() {
   const { data: pipelines = [], isLoading, error } = usePipelines();
@@ -17,6 +18,12 @@ export function DashboardPipelinesRoute() {
   function openPipeline(p: SavedPipeline) {
     navigate(ROUTES.pipeline(p.id));
   }
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
 
   async function handleDelete(id: string, name: string) {
     try {
@@ -47,10 +54,6 @@ export function DashboardPipelinesRoute() {
           New pipeline
         </Button>
       </div>
-
-      {error && (
-        <p className="text-sm text-destructive mb-4">{String(error.message)}</p>
-      )}
 
       {pipelines.length === 0 && (
         <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
