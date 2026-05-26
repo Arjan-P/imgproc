@@ -3,10 +3,13 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "../layouts/RootLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 
-import { DashboardHomeRoute } from "@/routes/dashboard/DashboardHomeRoute";
 import { ProtectedLayout } from "@/routes/protected/ProtectedRoute";
-import { WorkspaceRoute } from "@/routes/dashboard/DashboardWorkspaceRoute";
-import { DashboardPipelinesRoute } from "@/routes/dashboard/DashboardPipelinesRoute";
+
+import { DashboardHomeRoute } from "@/routes/dashboard/DashboardHomeRoute";
+
+import { DashboardPipelinesRoute } from "@/routes/dashboard/pipelines/DashboardPipelinesRoute";
+import { PipelineEditorRoute } from "@/routes/dashboard/pipelines/PipelineEditorRoute";
+import { CreatePipelineRoute } from "@/routes/dashboard/pipelines/CreatePipelineRoute";
 
 export const router = createBrowserRouter([
   {
@@ -20,9 +23,30 @@ export const router = createBrowserRouter([
             path: "dashboard",
             element: <DashboardLayout />,
             children: [
-              { index: true, element: <DashboardHomeRoute /> },
-              { path: "workspace", element: <WorkspaceRoute /> },
-              { path: "pipelines", element: <DashboardPipelinesRoute /> },
+              {
+                index: true,
+                element: <DashboardHomeRoute />,
+              },
+
+              {
+                path: "pipelines",
+                children: [
+                  {
+                    index: true,
+                    element: <DashboardPipelinesRoute />,
+                  },
+
+                  {
+                    path: "new",
+                    element: <CreatePipelineRoute />,
+                  },
+
+                  {
+                    path: ":pipelineId",
+                    element: <PipelineEditorRoute />,
+                  },
+                ],
+              },
             ],
           },
         ],
@@ -30,3 +54,10 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+export const ROUTES = {
+  dashboard: "/dashboard",
+  pipelines: "/dashboard/pipelines",
+  newPipeline: "/dashboard/pipelines/new",
+  pipeline: (id: string) => `/dashboard/pipelines/${id}`,
+};

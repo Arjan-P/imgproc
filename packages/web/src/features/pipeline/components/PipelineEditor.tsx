@@ -1,22 +1,18 @@
+import { usePipelineStore } from "@/features/pipeline";
+import { DropZone } from "./DropZone";
+import { ImageCanvas } from "./ImageCanvas";
+import { OpToolbar } from "./OpToolbar";
+import { PipelineGraph } from "./flow/PipelineGraph";
+import { SavePipelineButton } from "./SavePipelineButton";
 import { ReactFlowProvider } from "@xyflow/react";
 import {
-  DropZone,
-  ImageCanvas,
-  OpToolbar,
-  PipelineGraph,
-  usePipelineStore,
-} from "@/features/pipeline";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
   ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { SavePipelineButton } from "@/features/pipeline/components/SavePipelineButton";
 
-export function WorkspaceRoute() {
+export function PipelineEditor() {
   const source = usePipelineStore((s) => s.source);
-
-  // ReactFlowProvider must wrap PipelineGraph
   return (
     <ReactFlowProvider>
       {/* fill the SidebarInset — it's already h-full from DashboardLayout */}

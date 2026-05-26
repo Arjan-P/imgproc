@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "../providers/theme-provider";
 import { ApiProvider } from "../providers/api-provider";
@@ -13,6 +14,7 @@ export function RootLayout() {
           <ThemeProvider>
             <TooltipProvider>
               <Outlet />
+              <Toaster />
             </TooltipProvider>
           </ThemeProvider>
         </ApiProvider>

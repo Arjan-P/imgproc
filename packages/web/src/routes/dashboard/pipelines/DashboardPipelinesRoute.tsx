@@ -1,8 +1,4 @@
-import {
-  useDeletePipeline,
-  usePipelineStore,
-  usePipelines,
-} from "@/features/pipeline";
+import { useDeletePipeline, usePipelines } from "@/features/pipeline";
 import type { SavedPipeline } from "@imgproc/shared";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
@@ -10,19 +6,16 @@ import { TrashIcon, PlayIcon, Loader2Icon, WorkflowIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { ROUTES } from "@/app/router/router";
 
 export function DashboardPipelinesRoute() {
-  const store = usePipelineStore.getState();
   const { data: pipelines = [], isLoading, error } = usePipelines();
 
   const { mutateAsync: remove } = useDeletePipeline();
   const navigate = useNavigate();
 
-  function loadIntoWorkspace(p: SavedPipeline) {
-    store.clearSource();
-    store.loadPipeline(p.ops);
-
-    navigate("/dashboard/workspace");
+  function openPipeline(p: SavedPipeline) {
+    navigate(ROUTES.pipeline(p.id));
   }
 
   async function handleDelete(id: string, name: string) {
@@ -50,13 +43,13 @@ export function DashboardPipelinesRoute() {
             {pipelines.length} pipeline{pipelines.length !== 1 ? "s" : ""}
           </p>
         </div>
-        <Button onClick={() => navigate("/dashboard/workspace")}>
+        <Button onClick={() => navigate(ROUTES.newPipeline)}>
           New pipeline
         </Button>
       </div>
 
       {error && (
-        <p className="text-sm text-destructive mb-4">{String(error)}</p>
+        <p className="text-sm text-destructive mb-4">{String(error.message)}</p>
       )}
 
       {pipelines.length === 0 && (
@@ -68,7 +61,7 @@ export function DashboardPipelinesRoute() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => navigate("/dashboard/workspace")}
+            onClick={() => navigate(ROUTES.newPipeline)}
           >
             Create your first pipeline
           </Button>
@@ -107,7 +100,7 @@ export function DashboardPipelinesRoute() {
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8"
-                onClick={() => loadIntoWorkspace(p)}
+                onClick={() => openPipeline(p)}
               >
                 <PlayIcon className="w-3.5 h-3.5" />
               </Button>

@@ -2,10 +2,7 @@
 export * from "./store/pipeline.store";
 
 // components
-export * from "./components/DropZone";
-export * from "./components/ImageCanvas";
-export * from "./components/OpToolbar";
-export * from "./components/flow/PipelineGraph";
+export * from "./components/PipelineEditor";
 
 // hooks
 export * from "./hooks/usePipelines";
