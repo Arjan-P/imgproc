@@ -1,5 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { SiteHeader, AppSidebar } from "@/features/dashborad/";
+import { AppSidebar, SiteHeader } from "@/features/dashboard";
+import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
   return (
@@ -14,6 +15,9 @@ export default function DashboardLayout() {
       <AppSidebar variant="inset" />
       <SidebarInset className="m-2 rounded-2xl border overflow-hidden">
         <SiteHeader />
+        <main className="flex-1 min-h-0">
+          <Outlet />
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
