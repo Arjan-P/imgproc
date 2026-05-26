@@ -15,7 +15,7 @@ export default function DashboardLayout() {
       <AppSidebar variant="inset" />
       <SidebarInset className="m-2 rounded-2xl border overflow-hidden">
         <SiteHeader />
-        <main className="flex-1 min-h-0">
+        <main className="flex-1 overflow-auto">
           <Outlet />
         </main>
       </SidebarInset>

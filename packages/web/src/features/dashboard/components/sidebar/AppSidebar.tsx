@@ -15,7 +15,7 @@ import {
 
 const data = {
   navMain: [
-    { title: "Pipelines", url: "/dashboard/pipeline", icon: WorkflowIcon },
+    { title: "Pipelines", url: "/dashboard/pipelines", icon: WorkflowIcon },
   ],
 };
 

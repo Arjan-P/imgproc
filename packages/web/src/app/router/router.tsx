@@ -6,6 +6,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import { DashboardHomeRoute } from "@/routes/dashboard/DashboardHomeRoute";
 import { ProtectedLayout } from "@/routes/protected/ProtectedRoute";
 import { WorkspaceRoute } from "@/routes/dashboard/DashboardWorkspaceRoute";
+import { DashboardPipelinesRoute } from "@/routes/dashboard/DashboardPipelinesRoute";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
             children: [
               { index: true, element: <DashboardHomeRoute /> },
               { path: "workspace", element: <WorkspaceRoute /> },
+              { path: "pipelines", element: <DashboardPipelinesRoute /> },
             ],
           },
         ],

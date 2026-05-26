@@ -55,7 +55,6 @@ export function PipelineGraph() {
       deleteKeyCode={["Backspace", "Delete"]}
       nodesConnectable={false}
       connectOnClick={false}
-      className="rounded-lg"
     >
       <Background
         variant={BackgroundVariant.Dots}

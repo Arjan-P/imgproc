@@ -19,16 +19,17 @@ async function fileToRawImage(file: File): Promise<RawImage> {
 }
 
 export function DropZone() {
-  const { setSource, clearSource } = usePipelineStore();
+  const setSource = usePipelineStore((s) => s.setSource);
   const [dragging, setDragging] = useState(false);
 
   const load = useCallback(
     async (file: File) => {
       if (!file.type.startsWith("image/")) return;
-      clearSource();
-      setSource(await fileToRawImage(file));
+
+      const img = await fileToRawImage(file);
+      setSource(img);
     },
-    [setSource, clearSource],
+    [setSource],
   );
 
   return (

@@ -1,5 +1,5 @@
 import { usePipelineStore } from "../store/pipeline.store.js";
-import { type Op, OP_DEFAULTS } from "@imgproc/shared";
+import { type Op } from "@imgproc/shared";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {

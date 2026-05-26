@@ -1,10 +1,11 @@
 import { z } from "zod";
-import type { Op } from "./op.js";
-import type { Job, JobProgress } from "./job.js";
-import { errorResponse } from "../schemas/response.schema.js";
+import { errorResponse, successResponse } from "../schemas/response.schema.js";
+import { Op } from "./op.js";
+import { PipelineListItem, SavedPipeline } from "./pipeline.js";
 
 export const ERROR_CODES = [
   // Generic
+  "AUTHENTICATION_ERROR",
   "NOT_FOUND",
   "BAD_REQUEST",
   "VALIDATION_ERROR",
@@ -13,21 +14,35 @@ export const ERROR_CODES = [
 
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
+export type SuccessResponse<T> = {
+  success: true;
+  data: T;
+  meta?: {
+    message?: string;
+  };
+};
 export type ErrorResponse = z.infer<typeof errorResponse>;
 
-export interface UploadResponse {
-  jobId: string;
-}
+// /api/pipelines:
 
-export interface SubmitOpsRequest {
+// POST /api/pipelines
+export interface CreatePipelineRequest {
+  name: string;
   ops: Op[];
 }
+export type CreatePipelineResponse = SavedPipeline;
 
-export type GetJobResponse = Job;
-
-export interface JobResultResponse {
-  url: string;
-  expiresAt: string;
+// GET /api/pipelines
+export interface ListPipelinesResponse {
+  pipelines: PipelineListItem[];
 }
 
-export type ProgressEvent = JobProgress;
+// GET /api/pipelines/:id
+export type GetPipelineResponse = SavedPipeline;
+
+// PATCH /api/pipelines/:id
+export interface UpdatePipelineRequest {
+  name?: string;
+  ops?: Op[];
+}
+export type UpdatePipelineResponse = SavedPipeline;

@@ -1,6 +1,7 @@
 import { FastifyPluginAsync } from "fastify";
 import { clerkPlugin } from "@clerk/fastify";
 import { env } from "../config/env/env.js";
+import { pipelineRoutes } from "../modules/pipeline/pipeline.route.js";
 
 export const protectedRoutes: FastifyPluginAsync = async (fastify) => {
   await fastify.register(clerkPlugin, {
@@ -14,4 +15,7 @@ export const protectedRoutes: FastifyPluginAsync = async (fastify) => {
   // (some public, some protected) within the same scope, and lets you
   // make authorization decisions (not just authentication) per route, e.g.
   // checking roles or org membership alongside isAuthenticated.
+
+  // all routes below here have Clerk auth state attached
+  fastify.register(pipelineRoutes);
 };

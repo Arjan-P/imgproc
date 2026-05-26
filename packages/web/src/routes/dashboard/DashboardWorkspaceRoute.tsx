@@ -11,6 +11,7 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
+import { SavePipelineButton } from "@/features/pipeline/components/SavePipelineButton";
 
 export function WorkspaceRoute() {
   const source = usePipelineStore((s) => s.source);
@@ -28,6 +29,9 @@ export function WorkspaceRoute() {
               {source.width}×{source.height}
             </span>
           )}
+          <div className="ml-auto">
+            <SavePipelineButton />
+          </div>
         </div>
 
         {/* main area — resizable 3 panels */}

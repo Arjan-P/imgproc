@@ -14,6 +14,9 @@ export interface PipelineState {
 export interface PipelineActions {
   setSource: (img: RawImage) => void;
   clearSource: () => void;
+  clearPipeline: () => void;
+  loadPipeline: (ops: Op[]) => void;
+  resetWorkspace: () => void;
   addOp: (type: Op["type"]) => void;
   removeOp: (id: string) => void;
   reorderOps: (orderedIds: string[]) => void;
@@ -33,8 +36,23 @@ export const usePipelineStore = create<PipelineState & PipelineActions>()(
 
     // actions
     setSource: (img) => set({ source: img, error: null }),
-    clearSource: () => set({ source: null, ops: [], error: null }),
+    clearSource: () => set({ source: null }),
 
+    clearPipeline: () => set({ ops: [] }),
+    loadPipeline: (ops) =>
+      set({
+        ops: ops.map((op) => ({
+          ...op,
+          id: crypto.randomUUID(),
+        })),
+      }),
+    resetWorkspace: () =>
+      set({
+        source: null,
+        ops: [],
+        error: null,
+        processing: false,
+      }),
     addOp: (type) =>
       set((s) => ({
         ops: [...s.ops, { ...OP_DEFAULTS[type], id: crypto.randomUUID() }],
