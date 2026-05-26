@@ -7,5 +7,5 @@ export function CreatePipelineRoute() {
   useEffect(() => {
     clearPipeline();
   }, [clearPipeline]);
-  return <PipelineEditor />;
+  return <PipelineEditor pipelineName="New Pipeline" />;
 }

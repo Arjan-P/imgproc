@@ -11,7 +11,12 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-export function PipelineEditor() {
+interface PipelineEditorParams {
+  pipelineName?: string;
+}
+export function PipelineEditor({
+  pipelineName = "Untitled Pipeline",
+}: PipelineEditorParams) {
   const source = usePipelineStore((s) => s.source);
   return (
     <ReactFlowProvider>
@@ -19,7 +24,7 @@ export function PipelineEditor() {
       <div className="h-full flex flex-col">
         {/* top toolbar strip */}
         <div className="flex items-center gap-3 px-4 py-2 border-b border-border shrink-0">
-          <span className="text-sm font-medium">Pipeline</span>
+          <span className="text-sm font-medium">{pipelineName}</span>
           {source && (
             <span className="text-xs text-muted-foreground font-mono">
               {source.width}×{source.height}

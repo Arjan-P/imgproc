@@ -48,5 +48,5 @@ export function PipelineEditorRoute() {
     );
   }
 
-  return <PipelineEditor />;
+  return <PipelineEditor pipelineName={data.name} />;
 }
