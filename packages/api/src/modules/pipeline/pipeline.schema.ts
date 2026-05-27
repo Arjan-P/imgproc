@@ -8,6 +8,12 @@ const opSchema = z.discriminatedUnion("type", [
   }),
   z.object({ type: z.literal("grayscale") }),
   z.object({ type: z.literal("invert") }),
+  z.object({
+    type: z.literal("brightness"),
+    delta: z.number().int().min(-100).max(100),
+  }),
+  z.object({ type: z.literal("flipHorizontal") }),
+  z.object({ type: z.literal("flipVertical") }),
 ]);
 
 export const savedPipelineSchema = z.object({

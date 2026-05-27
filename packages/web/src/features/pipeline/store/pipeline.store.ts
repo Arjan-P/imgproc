@@ -6,6 +6,8 @@ export type PipelineOp = Op & { id: string };
 
 export interface PipelineState {
   source: RawImage | null;
+  id?: string;
+  name: string;
   ops: PipelineOp[];
   processing: boolean;
   error: string | null;
@@ -13,8 +15,9 @@ export interface PipelineState {
 
 export interface PipelineActions {
   setSource: (img: RawImage) => void;
+  setId: (id?: string) => void;
+  setName: (name: string) => void;
   clearSource: () => void;
-  clearPipeline: () => void;
   loadPipeline: (ops: Op[]) => void;
   resetWorkspace: () => void;
   addOp: (type: Op["type"]) => void;
@@ -30,15 +33,17 @@ export const usePipelineStore = create<PipelineState & PipelineActions>()(
   (set) => ({
     // state
     source: null,
+    name: "Untitled Pipeline",
     ops: [],
     processing: false,
     error: null,
 
     // actions
     setSource: (img) => set({ source: img, error: null }),
+    setId: (id) => set({ id }),
+    setName: (name) => set({ name }),
     clearSource: () => set({ source: null }),
 
-    clearPipeline: () => set({ ops: [] }),
     loadPipeline: (ops) =>
       set({
         ops: ops.map((op) => ({
@@ -48,6 +53,8 @@ export const usePipelineStore = create<PipelineState & PipelineActions>()(
       }),
     resetWorkspace: () =>
       set({
+        id: undefined,
+        name: "Untitled Pipeline",
         source: null,
         ops: [],
         error: null,

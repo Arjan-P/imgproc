@@ -2,10 +2,10 @@ import { PipelineEditor, usePipelineStore } from "@/features/pipeline";
 import { useEffect } from "react";
 
 export function CreatePipelineRoute() {
-  const clearPipeline = usePipelineStore((s) => s.clearPipeline);
+  const resetWorkspace = usePipelineStore((s) => s.resetWorkspace);
 
   useEffect(() => {
-    clearPipeline();
-  }, [clearPipeline]);
-  return <PipelineEditor pipelineName="New Pipeline" />;
+    resetWorkspace();
+  }, [resetWorkspace]);
+  return <PipelineEditor mode="create" />;
 }

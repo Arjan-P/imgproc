@@ -12,25 +12,37 @@ import {
 import { Input } from "@/components/ui/input";
 import { SaveIcon, Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
+import { ROUTES } from "@/app/router/router.js";
+import { useNavigate } from "react-router-dom";
 
 export function SavePipelineButton() {
+  const navigate = useNavigate();
+  const name = usePipelineStore((s) => s.name);
+  const setName = usePipelineStore((s) => s.setName);
+  const pipelineId = usePipelineStore((s) => s.id);
   const ops = usePipelineStore((s) => s.ops);
 
   const { save, saving } = useSavePipeline();
 
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("Untitled pipeline");
 
   async function handleSave() {
     try {
-      await save({
+      const saved = await save({
+        id: pipelineId,
         name,
         ops,
       });
 
       setOpen(false);
 
-      toast.success(`"${name}" saved`);
+      toast.success(`"${saved.name}" saved`);
+
+      if (!pipelineId) {
+        navigate(ROUTES.pipeline(saved.id), {
+          replace: true,
+        });
+      }
     } catch {
       toast.error("Failed to save pipeline");
     }

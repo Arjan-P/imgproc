@@ -10,6 +10,8 @@ import { Navigate, useParams } from "react-router-dom";
 
 export function PipelineEditorRoute() {
   const { pipelineId } = useParams();
+  const setName = usePipelineStore((s) => s.setName);
+  const setId = usePipelineStore((s) => s.setId);
   const loadPipeline = usePipelineStore((s) => s.loadPipeline);
 
   if (!pipelineId) {
@@ -20,9 +22,11 @@ export function PipelineEditorRoute() {
 
   useEffect(() => {
     if (data) {
+      setId(data.id);
+      setName(data.name);
       loadPipeline(data.ops);
     }
-  }, [data, loadPipeline]);
+  }, [data, loadPipeline, setId, setName]);
 
   if (isLoading)
     return (
@@ -48,5 +52,5 @@ export function PipelineEditorRoute() {
     );
   }
 
-  return <PipelineEditor pipelineName={data.name} />;
+  return <PipelineEditor mode="edit" pipelineId={pipelineId} />;
 }

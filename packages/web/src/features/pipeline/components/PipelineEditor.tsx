@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/resizable";
 
 interface PipelineEditorParams {
-  pipelineName?: string;
+  mode: "create" | "edit";
+  pipelineId?: string;
 }
-export function PipelineEditor({
-  pipelineName = "Untitled Pipeline",
-}: PipelineEditorParams) {
+
+export function PipelineEditor({ mode, pipelineId }: PipelineEditorParams) {
+  const pipelineName = usePipelineStore((s) => s.name);
   const source = usePipelineStore((s) => s.source);
   return (
     <ReactFlowProvider>
@@ -31,7 +32,7 @@ export function PipelineEditor({
             </span>
           )}
           <div className="ml-auto">
-            <SavePipelineButton />
+            <SavePipelineButton mode={mode} pipelineId={pipelineId} />
           </div>
         </div>
 
