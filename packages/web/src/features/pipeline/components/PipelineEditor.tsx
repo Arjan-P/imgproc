@@ -11,12 +11,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-interface PipelineEditorParams {
-  mode: "create" | "edit";
-  pipelineId?: string;
-}
-
-export function PipelineEditor({ mode, pipelineId }: PipelineEditorParams) {
+export function PipelineEditor() {
   const pipelineName = usePipelineStore((s) => s.name);
   const source = usePipelineStore((s) => s.source);
   return (
@@ -32,7 +27,7 @@ export function PipelineEditor({ mode, pipelineId }: PipelineEditorParams) {
             </span>
           )}
           <div className="ml-auto">
-            <SavePipelineButton mode={mode} pipelineId={pipelineId} />
+            <SavePipelineButton />
           </div>
         </div>
 
