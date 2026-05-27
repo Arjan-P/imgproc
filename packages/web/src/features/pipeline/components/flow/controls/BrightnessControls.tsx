@@ -26,8 +26,8 @@ export function BrightnessControls({ op, onUpdate }: Props) {
           <span className="text-[10px] font-mono text-foreground">{delta}</span>
         </div>
         <Slider
-          min={-255}
-          max={255}
+          min={-100}
+          max={100}
           step={1}
           value={[delta]}
           onValueChange={([v]) => setDelta(v)}

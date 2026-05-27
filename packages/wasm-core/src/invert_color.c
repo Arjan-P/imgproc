@@ -1,7 +1,7 @@
 #include "imgproc.h"
 #include <stdint.h>
 
-Image *img_invert(Image *src) {
+Image *img_invert(const Image *src) {
   Image *out = img_create(src->w, src->h, src->channels);
   if (!out) return NULL;
 

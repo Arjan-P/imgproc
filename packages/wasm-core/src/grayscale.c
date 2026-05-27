@@ -1,6 +1,6 @@
 #include "imgproc.h"
 
-Image* img_grayscale(Image* src) {
+Image* img_grayscale(const Image* src) {
   Image* out = img_create(src->w, src->h, src->channels);
   if(!out) return NULL;
  
