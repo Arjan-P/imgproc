@@ -7,6 +7,8 @@ import {
   CircleIcon,
   ArrowRightLeftIcon,
   SunIcon,
+  FlipHorizontalIcon,
+  FlipVerticalIcon,
 } from "lucide-react";
 
 const OP_META: {
@@ -16,6 +18,8 @@ const OP_META: {
   grayscale: { label: "Grayscale", Icon: CircleIcon },
   invert: { label: "Invert", Icon: ArrowRightLeftIcon },
   brightness: { label: "Brightness", Icon: SunIcon },
+  flipHorizontal: { label: "Flip Horizontal", Icon: FlipHorizontalIcon },
+  flipVertical: { label: "Flip Vertical", Icon: FlipVerticalIcon },
 };
 
 export function OpToolbar() {

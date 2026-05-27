@@ -2,7 +2,14 @@
 /// <reference lib="ES2022" />
 /// <reference lib="WebWorker" />
 
-import { resize, grayscale, invert, brightness } from "@imgproc/wasm";
+import {
+  resize,
+  grayscale,
+  invert,
+  brightness,
+  flip_horizontal,
+  flip_vertical,
+} from "@imgproc/wasm";
 import type { RawImage } from "@imgproc/wasm";
 import type { Op } from "@imgproc/shared";
 
@@ -22,6 +29,8 @@ const ops: { [K in Op["type"]]: (req: WorkerRequest) => Promise<RawImage> } = {
     if (r.type !== "brightness") throw new Error("unreachable");
     return brightness(r.img, r.delta);
   },
+  flipHorizontal: (r) => flip_horizontal(r.img),
+  flipVertical: (r) => flip_vertical(r.img),
 };
 
 self.onmessage = async (e: MessageEvent<WorkerRequest>) => {

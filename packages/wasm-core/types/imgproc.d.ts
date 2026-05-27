@@ -9,6 +9,8 @@ export interface ImgProcModule {
   _img_grayscale(ptr: number): number;
   _img_brightness(ptr: number, d: number);
   _img_invert(ptr: number): number;
+  _img_flip_vertical(ptr: number);
+  _img_flip_horizontal(ptr: number);
   _img_free(ptr: number): void;
 }
 

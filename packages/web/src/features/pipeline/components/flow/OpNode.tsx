@@ -7,8 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { BrightnessControls } from "./controls/BrightnessControls.js";
-import { ResizeControls } from "./controls/ResizeControls.js";
+import { CONTROL_COMPONENTS } from "./controls/index.js";
 
 export type OpNodeData = { op: PipelineOp };
 
@@ -20,11 +19,18 @@ const OP_COLORS: Record<PipelineOp["type"], string> = {
     "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20",
   brightness:
     "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20",
+  flipHorizontal:
+    "bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20",
+  flipVertical:
+    "bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20",
 };
 
 export function OpNode({ data, selected }: NodeProps) {
   const { op } = data as OpNodeData;
   const { removeOp, updateOp } = usePipelineStore();
+
+  const Controls =
+    CONTROL_COMPONENTS[op.type as keyof typeof CONTROL_COMPONENTS];
 
   return (
     <div
@@ -60,21 +66,12 @@ export function OpNode({ data, selected }: NodeProps) {
 
       {/* body — per-op controls */}
       <div className="px-3 py-2.5">
-        {op.type === "resize" && (
-          <ResizeControls
-            op={op}
+        {Controls ? (
+          <Controls
+            op={op as never}
             onUpdate={(patch) => updateOp(op.id, patch)}
           />
-        )}
-
-        {op.type === "brightness" && (
-          <BrightnessControls
-            op={op}
-            onUpdate={(patch) => updateOp(op.id, patch)}
-          />
-        )}
-
-        {(op.type === "grayscale" || op.type === "invert") && (
+        ) : (
           <p className="text-[11px] text-muted-foreground">no parameters</p>
         )}
       </div>

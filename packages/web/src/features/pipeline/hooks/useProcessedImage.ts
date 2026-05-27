@@ -28,6 +28,12 @@ async function runPipeline(
       case "brightness":
         img = await workerOp.brightness({ ...img, delta: op.delta });
         break;
+      case "flipHorizontal":
+        img = await workerOp.flipHorizontal(img);
+        break;
+      case "flipVertical":
+        img = await workerOp.flipVertical(img);
+        break;
     }
     // result buffer is now owned by img
   }

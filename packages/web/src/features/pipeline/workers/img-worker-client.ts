@@ -95,6 +95,31 @@ function workerBrightness({
   });
 }
 
+function workerFlipHorizontal({
+  data,
+  width,
+  height,
+  channels,
+}: RawImage & OpParams<"flipHorizontal">) {
+  return send({
+    id: makeId(),
+    img: { data, width, height, channels },
+    type: "flipHorizontal",
+  });
+}
+function workerFlipVertical({
+  data,
+  width,
+  height,
+  channels,
+}: RawImage & OpParams<"flipVertical">) {
+  return send({
+    id: makeId(),
+    img: { data, width, height, channels },
+    type: "flipVertical",
+  });
+}
+
 export const workerOp: {
   [K in Op["type"]]: (params: RawImage & OpParams<K>) => Promise<RawImage>;
 } = {
@@ -102,4 +127,6 @@ export const workerOp: {
   grayscale: workerGrayscale,
   invert: workerInvert,
   brightness: workerBrightness,
+  flipHorizontal: workerFlipHorizontal,
+  flipVertical: workerFlipVertical,
 };

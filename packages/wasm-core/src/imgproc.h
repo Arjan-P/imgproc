@@ -1,6 +1,8 @@
 #pragma once
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct {
   uint8_t *data;
@@ -25,3 +27,5 @@ Image* img_resize(const Image* src, int new_w, int new_h);
 Image* img_invert(const Image* src);
 Image* img_grayscale(const Image* src);
 Image* img_brightness(const Image* src, int delta);
+Image* img_flip_horizontal(const Image* src);
+Image* img_flip_vertical(const Image* src);

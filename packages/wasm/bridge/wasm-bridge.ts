@@ -62,3 +62,13 @@ export async function brightness(
   const mod = await getModule();
   return withImage(mod, img, (p) => mod._img_brightness(p, delta));
 }
+
+export async function flip_horizontal(img: RawImage): Promise<RawImage> {
+  const mod = await getModule();
+  return withImage(mod, img, (p) => mod._img_flip_horizontal(p));
+}
+
+export async function flip_vertical(img: RawImage): Promise<RawImage> {
+  const mod = await getModule();
+  return withImage(mod, img, (p) => mod._img_flip_vertical(p));
+}

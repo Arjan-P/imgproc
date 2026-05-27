@@ -21,7 +21,21 @@ export interface BrightnessOp {
   delta: number;
 }
 
-export type Op = ResizeOp | GrayscaleOp | InvertOp | BrightnessOp;
+export interface FlipHorizontalOp {
+  type: "flipHorizontal";
+}
+
+export interface FlipVerticalOp {
+  type: "flipVertical";
+}
+
+export type Op =
+  | ResizeOp
+  | GrayscaleOp
+  | InvertOp
+  | BrightnessOp
+  | FlipHorizontalOp
+  | FlipVerticalOp;
 
 // Narrows to the op's params -> everything except `type`
 export type OpParams<T extends Op["type"]> = Omit<
@@ -35,4 +49,6 @@ export const OP_DEFAULTS: { [K in Op["type"]]: Extract<Op, { type: K }> } = {
   grayscale: { type: "grayscale" },
   invert: { type: "invert" },
   brightness: { type: "brightness", delta: 0 },
+  flipHorizontal: { type: "flipHorizontal" },
+  flipVertical: { type: "flipVertical" },
 };

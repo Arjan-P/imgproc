@@ -1,9 +1,9 @@
 CC      = emcc
 CFLAGS  = -O3 -I vendor/
-SRCS    = src/memory.c src/resize.c src/grayscale.c src/invert_color.c src/brightness.c
+SRCS    = src/memory.c src/resize.c src/grayscale.c src/invert_color.c src/brightness.c src/flip_vertical.c src/flip_horizontal.c
 OUT     = dist/imgproc
 
-EXPORTS = '["_img_create","_img_from_ptr","_img_free","_img_resize","_img_grayscale","_img_invert","_img_brightness","_malloc","_free"]'
+EXPORTS = '["_img_create","_img_from_ptr","_img_free","_img_resize","_img_grayscale","_img_invert","_img_brightness","_img_flip_vertical","_img_flip_horizontal","_malloc","_free"]'
 
 RUNTIME = '["ccall","cwrap","getValue"]'
 
