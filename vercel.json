@@ -1,0 +1,16 @@
+{
+  "buildCommand": "pnpm --filter @imgproc/shared build && pnpm --filter @imgproc/wasm build && pnpm --filter @imgproc/web build",
+  "outputDirectory": "packages/web/dist",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": null,
+  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" }
+      ]
+    }
+  ]
+}
