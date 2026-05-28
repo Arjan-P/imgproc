@@ -52,5 +52,5 @@ export function PipelineEditorRoute() {
     );
   }
 
-  return <PipelineEditor mode="edit" pipelineId={pipelineId} />;
+  return <PipelineEditor />;
 }

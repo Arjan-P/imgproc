@@ -7,5 +7,5 @@ export function CreatePipelineRoute() {
   useEffect(() => {
     resetWorkspace();
   }, [resetWorkspace]);
-  return <PipelineEditor mode="create" />;
+  return <PipelineEditor />;
 }

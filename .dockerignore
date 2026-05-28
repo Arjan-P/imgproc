@@ -3,4 +3,3 @@
 **/.git
 **/dev-dist
 packages/web
-pnpm-lock.yaml
