@@ -9,6 +9,9 @@ import { CacheFirst, NetworkFirst } from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { BackgroundSyncPlugin } from "workbox-background-sync";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const API_ORIGIN = new URL(BACKEND_URL).origin;
+
 declare const self: ServiceWorkerGlobalScope;
 
 clientsClaim();
@@ -29,7 +32,7 @@ registerRoute(
 
 // API requests: network-first, queue when offline
 registerRoute(
-  ({ url }) => url.pathname.startsWith("/api/"),
+  ({ url }) => url.origin === API_ORIGIN,
   new NetworkFirst({
     cacheName: "api-cache",
     networkTimeoutSeconds: 5,
