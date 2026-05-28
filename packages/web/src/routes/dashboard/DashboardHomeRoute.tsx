@@ -15,7 +15,7 @@ import { useDeletePipeline } from "@/features/pipeline/hooks/useDeletePipeline";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { ROUTES } from "@/app/router/router";
-import { type SavedPipeline } from "@imgproc/shared";
+import { type SavedPipeline, type Op } from "@imgproc/shared";
 import { cn } from "@/lib/utils";
 
 function greeting() {
@@ -25,7 +25,7 @@ function greeting() {
   return "Good evening";
 }
 
-const OP_BADGE: Record<string, string> = {
+const OP_BADGE: { [K in Op["type"]]: string } = {
   resize: "bg-blue-500/10 text-blue-600 border-blue-500/20",
   grayscale: "bg-neutral-500/10 text-neutral-600 border-neutral-500/20",
   invert: "bg-purple-500/10 text-purple-600 border-purple-500/20",
