@@ -1,3 +1,4 @@
+import { Loading } from "@/components/Loading";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -11,9 +12,8 @@ export function ProtectedLayout() {
   return (
     <>
       <ClerkLoading>
-        <div>Loading...</div>
+        <Loading />
       </ClerkLoading>
-
       <ClerkLoaded>
         <Show when="signed-out">
           <RedirectToSignIn />

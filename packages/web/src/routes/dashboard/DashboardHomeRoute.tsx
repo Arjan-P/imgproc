@@ -7,7 +7,6 @@ import {
   PlusCircleIcon,
   ListIcon,
   SlidersHorizontalIcon,
-  Loader2Icon,
   GhostIcon,
 } from "lucide-react";
 import { usePipelines } from "@/features/pipeline/hooks/usePipelines";
@@ -17,6 +16,7 @@ import { toast } from "sonner";
 import { ROUTES } from "@/app/router/router";
 import { type SavedPipeline, type Op } from "@imgproc/shared";
 import { cn } from "@/lib/utils";
+import { Loading } from "@/components/Loading";
 
 function greeting() {
   const h = new Date().getHours();
@@ -132,12 +132,7 @@ export function DashboardHomeRoute() {
     }
   }
 
-  if (isLoading)
-    return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2Icon className="w-5 h-5 animate-spin text-muted-foreground" />
-      </div>
-    );
+  if (isLoading) return <Loading />;
 
   return (
     <div className="p-6 w-full space-y-6">

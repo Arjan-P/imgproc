@@ -1,10 +1,11 @@
 import { ROUTES } from "@/app/router/router";
+import { Loading } from "@/components/Loading";
 import {
   PipelineEditor,
   usePipeline,
   usePipelineStore,
 } from "@/features/pipeline";
-import { AlertCircleIcon, Loader2Icon } from "lucide-react";
+import { AlertCircleIcon } from "lucide-react";
 import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -28,12 +29,7 @@ export function PipelineEditorRoute() {
     }
   }, [data, loadPipeline, setId, setName]);
 
-  if (isLoading)
-    return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2Icon className="w-5 h-5 animate-spin text-muted-foreground" />
-      </div>
-    );
+  if (isLoading) return <Loading />;
 
   if (error)
     return (

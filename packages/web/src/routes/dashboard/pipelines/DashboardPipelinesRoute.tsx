@@ -2,12 +2,13 @@ import { useDeletePipeline, usePipelines } from "@/features/pipeline";
 import type { SavedPipeline } from "@imgproc/shared";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import { TrashIcon, PlayIcon, Loader2Icon, WorkflowIcon } from "lucide-react";
+import { TrashIcon, PlayIcon, WorkflowIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { ROUTES } from "@/app/router/router";
 import { useEffect } from "react";
+import { Loading } from "@/components/Loading";
 
 export function DashboardPipelinesRoute() {
   const { data: pipelines = [], isLoading, error } = usePipelines();
@@ -34,12 +35,7 @@ export function DashboardPipelinesRoute() {
     }
   }
 
-  if (isLoading)
-    return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2Icon className="w-5 h-5 animate-spin text-muted-foreground" />
-      </div>
-    );
+  if (isLoading) return <Loading />;
 
   return (
     <div className="mx-auto w-full max-w-7xl p-6 space-y-6">
