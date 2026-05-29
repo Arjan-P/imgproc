@@ -9,6 +9,15 @@ import { toast } from "sonner";
 import { ROUTES } from "@/app/router/router";
 import { useEffect } from "react";
 import { Loading } from "@/components/Loading";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 
 export function DashboardPipelinesRoute() {
   const { data: pipelines = [], isLoading, error } = usePipelines();
@@ -38,83 +47,113 @@ export function DashboardPipelinesRoute() {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="mx-auto w-full max-w-7xl p-6 space-y-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="mx-auto w-full max-w-7xl space-y-6 p-6">
+      {/* header */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-lg font-semibold">Saved Pipelines</h2>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Saved pipelines
+          </h1>
+
           <p className="text-sm text-muted-foreground">
-            {pipelines.length} pipeline{pipelines.length !== 1 ? "s" : ""}
+            {pipelines.length} pipeline
+            {pipelines.length !== 1 ? "s" : ""}
           </p>
         </div>
+
         <Button onClick={() => navigate(ROUTES.newPipeline)}>
           New pipeline
         </Button>
       </div>
 
-      {pipelines.length === 0 && (
-        <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-          <WorkflowIcon className="w-10 h-10 text-muted-foreground/40" />
-          <p className="text-sm text-muted-foreground">
-            No saved pipelines yet
-          </p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => navigate(ROUTES.newPipeline)}
-          >
-            Create your first pipeline
-          </Button>
+      {/* empty state */}
+      {pipelines.length === 0 ? (
+        <Card>
+          <CardContent className="py-16">
+            <Empty>
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <WorkflowIcon className="h-6 w-6" />
+                </EmptyMedia>
+
+                <EmptyTitle>No saved pipelines yet</EmptyTitle>
+
+                <EmptyDescription>
+                  Create your first image processing workflow
+                </EmptyDescription>
+              </EmptyHeader>
+
+              <EmptyContent>
+                <Button onClick={() => navigate(ROUTES.newPipeline)}>
+                  Create pipeline
+                </Button>
+              </EmptyContent>
+            </Empty>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {pipelines.map((p) => (
+            <Card key={p.id} className="transition-colors hover:bg-muted/30">
+              <CardContent className="flex items-center gap-4 p-4">
+                {/* icon */}
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary/10">
+                  <WorkflowIcon className="h-4 w-4 text-primary" />
+                </div>
+
+                {/* content */}
+                <button
+                  onClick={() => openPipeline(p)}
+                  className="min-w-0 flex-1 text-left"
+                >
+                  <p className="truncate text-sm font-medium">{p.name}</p>
+
+                  <p className="text-xs text-muted-foreground">
+                    {p.ops.length} op
+                    {p.ops.length !== 1 ? "s" : ""} · updated{" "}
+                    {formatDistanceToNow(new Date(p.updatedAt), {
+                      addSuffix: true,
+                    })}
+                  </p>
+                </button>
+
+                {/* ops */}
+                <div className="hidden shrink-0 gap-1 lg:flex">
+                  {p.ops.map((op, i) => (
+                    <Badge
+                      key={i}
+                      variant="outline"
+                      className="px-1.5 py-0 font-mono text-[10px]"
+                    >
+                      {op.type}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* actions */}
+                <div className="flex shrink-0 items-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => openPipeline(p)}
+                  >
+                    <PlayIcon className="h-4 w-4" />
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:text-destructive"
+                    onClick={() => handleDelete(p.id, p.name)}
+                  >
+                    <TrashIcon className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       )}
-
-      <div className="flex flex-col gap-2">
-        {pipelines.map((p) => (
-          <div
-            key={p.id}
-            className="flex items-center gap-4 px-4 py-3 rounded-lg border border-border bg-card hover:bg-accent/30 transition-colors group"
-          >
-            <WorkflowIcon className="w-4 h-4 text-muted-foreground shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{p.name}</p>
-              <p className="text-xs text-muted-foreground">
-                {p.ops.length} op{p.ops.length !== 1 ? "s" : ""} · updated
-                {formatDistanceToNow(new Date(p.updatedAt), {
-                  addSuffix: true,
-                })}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 shrink-0">
-              {p.ops.map((op, i) => (
-                <Badge
-                  key={i}
-                  variant="outline"
-                  className="text-[10px] font-mono px-1.5 py-0 hidden sm:inline-flex"
-                >
-                  {op.type}
-                </Badge>
-              ))}
-            </div>
-            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8"
-                onClick={() => openPipeline(p)}
-              >
-                <PlayIcon className="w-3.5 h-3.5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 hover:text-destructive"
-                onClick={() => handleDelete(p.id, p.name)}
-              >
-                <TrashIcon className="w-3.5 h-3.5" />
-              </Button>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
