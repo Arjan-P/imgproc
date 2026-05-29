@@ -1,4 +1,8 @@
-import { useDeletePipeline, usePipelines } from "@/features/pipeline";
+import {
+  OP_COLORS,
+  useDeletePipeline,
+  usePipelines,
+} from "@/features/pipeline";
 import type { SavedPipeline } from "@imgproc/shared";
 import { useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
@@ -123,7 +127,7 @@ export function DashboardPipelinesRoute() {
                     <Badge
                       key={i}
                       variant="outline"
-                      className="px-1.5 py-0 font-mono text-[10px]"
+                      className={OP_COLORS[op.type]}
                     >
                       {op.type}
                     </Badge>
