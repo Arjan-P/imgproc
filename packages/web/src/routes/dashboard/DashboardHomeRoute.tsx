@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/react";
 import { formatDistanceToNow } from "date-fns";
 
 import {
@@ -27,11 +26,12 @@ import { Loading } from "@/components/Loading";
 import { ROUTES } from "@/app/router/router";
 import { OP_COLORS, usePipelines } from "@/features/pipeline";
 import { greeting, MetCard, QuickCard } from "@/features/dashboard";
+import { useAuthStore } from "@/features/auth";
 
 export function DashboardHomeRoute() {
   const navigate = useNavigate();
 
-  const { user } = useUser();
+  const user = useAuthStore((s) => s.user);
 
   const { data: pipelines = [], isLoading } = usePipelines();
 

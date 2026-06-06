@@ -1,28 +1,12 @@
-import { Loading } from "@/components/Loading";
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  RedirectToSignIn,
-  Show,
-} from "@clerk/react";
+import { useAuthStore } from "@/features/auth";
+import { ROUTES } from "@/app/router/router";
 
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export function ProtectedLayout() {
-  return (
-    <>
-      <ClerkLoading>
-        <Loading />
-      </ClerkLoading>
-      <ClerkLoaded>
-        <Show when="signed-out">
-          <RedirectToSignIn />
-        </Show>
-
-        <Show when="signed-in">
-          <Outlet />
-        </Show>
-      </ClerkLoaded>
-    </>
-  );
+  const user = useAuthStore((s) => s.user);
+  if (!user) {
+    return <Navigate to={ROUTES.login} replace />;
+  }
+  return <Outlet />;
 }

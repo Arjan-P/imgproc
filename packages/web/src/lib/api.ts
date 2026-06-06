@@ -1,9 +1,20 @@
+import { useAuthStore } from "@/features/auth";
 import { errorResponse } from "@imgproc/shared";
 import axios, { AxiosError } from "axios";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
   withCredentials: true,
+});
+
+api.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().accessToken;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });
 
 api.interceptors.response.use(

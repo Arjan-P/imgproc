@@ -1,13 +1,14 @@
 import { z } from "zod";
-import { errorResponse, successResponse } from "../schemas/response.schema.js";
+import { errorResponse } from "../schemas/response.schema.js";
 import { Op } from "./op.js";
 import { PipelineListItem, SavedPipeline } from "./pipeline.js";
 
 export const ERROR_CODES = [
   // Generic
   "AUTHENTICATION_ERROR",
-  "NOT_FOUND",
-  "BAD_REQUEST",
+  "CONFLICT_ERROR",
+  "NOT_FOUND_ERROR",
+  "BAD_REQUEST_ERROR",
   "VALIDATION_ERROR",
   "INTERNAL_SERVER_ERROR",
 ] as const;

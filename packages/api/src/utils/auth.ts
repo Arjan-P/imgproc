@@ -1,9 +1,10 @@
 import type { FastifyRequest } from "fastify";
-import { getAuth } from "@clerk/fastify";
+
 import { AuthenticationError } from "../errors/index.js";
 
 export function requireUserId(req: FastifyRequest): string {
-  const { userId } = getAuth(req);
+  const userId = req.user?.sub;
+
   if (!userId) {
     throw new AuthenticationError();
   }

@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getPipeline, listPipelines } from "../api/pipeline.api";
 import { SavedPipeline } from "@imgproc/shared";
 import { ErrorResponse } from "@imgproc/shared";
-import { useAuth } from "@clerk/react";
+import { useAuthStore } from "@/features/auth";
 
 export function usePipelines() {
-  const { isSignedIn } = useAuth();
+  const isSignedIn = !!useAuthStore((s) => s.user);
 
   return useQuery<SavedPipeline[], ErrorResponse["error"]>({
     queryKey: ["pipelines"],
