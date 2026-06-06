@@ -1,5 +1,4 @@
 node_modules/
-dist/
 *.o
 .cache/
 compile_commands.json
