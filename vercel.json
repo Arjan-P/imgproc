@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm --filter @imgproc/shared build && pnpm --filter @imgproc/wasm build && pnpm --filter @imgproc/web build",
+  "buildCommand": "pnpm -r build",
   "outputDirectory": "packages/web/dist",
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": null,
