@@ -1,5 +1,4 @@
 // lib
-export * from "./lib/greeting";
 
 // components
 export * from "./components/MetCard";

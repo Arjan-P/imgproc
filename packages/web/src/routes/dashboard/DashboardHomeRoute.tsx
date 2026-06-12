@@ -25,7 +25,7 @@ import { Loading } from "@/components/Loading";
 
 import { ROUTES } from "@/app/router/router";
 import { OP_COLORS, usePipelines } from "@/features/pipeline";
-import { greeting, MetCard, QuickCard } from "@/features/dashboard";
+import { MetCard, QuickCard } from "@/features/dashboard";
 import { useAuthStore } from "@/features/auth";
 
 export function DashboardHomeRoute() {
@@ -88,14 +88,9 @@ export function DashboardHomeRoute() {
     <div className="w-full space-y-6 p-6">
       {/* header */}
       <div>
-        <h2 className="text-2xl font-semibold tracking-tight">
-          {greeting()}
-          {user?.firstName ? `, ${user.firstName}` : ""}
-        </h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Dashboard</h2>
 
-        <p className="mt-1 text-sm text-muted-foreground">
-          Here's what's happening in your workspace
-        </p>
+        <p className="mt-1 text-sm text-muted-foreground">Workspace overview</p>
       </div>
 
       {/* metrics */}
