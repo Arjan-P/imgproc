@@ -30,6 +30,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/bcrypt": "^6.0.0"
+    "@types/bcrypt": "^6.0.0",
+    "node-pg-migrate": "^8.0.4"
   }
 }
